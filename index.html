@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniversalPose: A Unified Multi-Modal Framework for Human Pose Estimation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <nav class="sidebar">
+        <div class="nav-content">
+            <a href="#header" class="nav-item active">Home</a>
+            <a href="#video" class="nav-item">Video</a>
+            <a href="#teaser" class="nav-item">Overview</a>
+            <a href="#visualization" class="nav-item">Visualization</a>
+            <a href="#architecture" class="nav-item">Architecture</a>
+            <a href="#results" class="nav-item">Results</a>
+            <a href="#moca" class="nav-item">MoCA Analysis</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header Section -->
+        <section id="header" class="section header-section">
+            <div class="section-inner">
+                <h1 class="title">UniversalPose</h1>
+                <p class="subtitle">A Unified Multi-Modal Framework for Human Pose Estimation</p>
+                <p class="authors">Anonymous Authors</p>
+                <!-- <p class="venue">ICML 2026 (Under Review)</p> -->
+                <div class="links">
+                    <a href="#" class="btn btn-primary">Paper (Coming Soon)</a>
+                    <a href="#" class="btn btn-secondary">Code (Coming Soon)</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section id="video" class="section">
+            <div class="section-inner">
+                <h2>Demo Video</h2>
+                <div class="video-container">
+                    <video controls width="100%">
+                        <source src="assets/videos/UniversalPose-video.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teaser Section -->
+        <section id="teaser" class="section">
+            <div class="section-inner">
+                <h2>Overview</h2>
+                <div class="teaser-container">
+                    <img src="assets/images/teaser.png" alt="UniversalPose Teaser: Joint training and fusion across multiple modalities" class="teaser-image">
+                </div>
+                <p class="caption">
+                    <strong>UniversalPose</strong> employs a single shared encoder for multiple sensing modalities (WiFi, mmWave, LiDAR, Depth, acoustic), enabling joint training with unpaired asynchronous datasets and seamless multi-modal fusion with synchronized paired data.
+                </p>
+            </div>
+        </section>
+
+        <!-- Interactive Visualization Section -->
+        <section id="visualization" class="section">
+            <div class="section-inner">
+                <h2>Interactive Comparison</h2>
+                <p class="section-description">
+                    Select a modality to compare UniversalPose predictions against modality-specific expert models.
+                </p>
+
+                <!-- Horizontal Modality Selector -->
+                <div class="modality-selector">
+                    <div class="modality-row">
+                        <div class="modality-item universalpose-label">
+                            <span class="modality-name-label">UniversalPose</span>
+                            <span class="modality-desc">Ours</span>
+                        </div>
+                        <div class="modality-item" data-modality="depth" data-baseline="A2J">
+                            <span class="modality-name-label">Depth</span>
+                            <span class="modality-desc">vs A2J</span>
+                        </div>
+                        <div class="modality-item" data-modality="lidar" data-baseline="Point Transformer">
+                            <span class="modality-name-label">LiDAR</span>
+                            <span class="modality-desc">vs Point Transformer</span>
+                        </div>
+                        <div class="modality-item" data-modality="mmwave" data-baseline="Point Transformer">
+                            <span class="modality-name-label">mmWave</span>
+                            <span class="modality-desc">vs Point Transformer</span>
+                        </div>
+                        <div class="modality-item" data-modality="tsp" data-baseline="TSP2Pose">
+                            <span class="modality-name-label">TSP</span>
+                            <span class="modality-desc">vs TSP2Pose</span>
+                        </div>
+                        <div class="modality-item" data-modality="wifi-csi2" data-baseline="MetaFi++">
+                            <span class="modality-name-label">WiFi-CSI2</span>
+                            <span class="modality-desc">vs MetaFi++</span>
+                        </div>
+                        <div class="modality-item" data-modality="wifi-csi" data-baseline="MetaFi">
+                            <span class="modality-name-label">WiFi-CSI</span>
+                            <span class="modality-desc">vs MetaFi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Display -->
+                <div class="comparison-container" id="comparison-container">
+                    <div class="comparison-header">
+                        <span class="modality-name" id="current-modality">Select a modality above</span>
+                        <button class="btn btn-visualize" id="visualize-btn" disabled>
+                            Next Sample
+                        </button>
+                    </div>
+
+                    <!-- Horizontal Layout: Signal | GT | UniversalPose | Baseline -->
+                    <div class="visualization-row">
+                        <div class="vis-item">
+                            <h3>Input Signal</h3>
+                            <div class="vis-image-container signal-box">
+                                <img id="signal-img" src="" alt="Input signal">
+                                <div class="placeholder" id="signal-placeholder">Select a modality</div>
+                            </div>
+                        </div>
+                        <div class="vis-item">
+                            <h3>Ground Truth</h3>
+                            <div class="vis-image-container pose-box">
+                                <img id="gt-img" src="" alt="Ground truth pose">
+                                <div class="placeholder" id="gt-placeholder">-</div>
+                            </div>
+                        </div>
+                        <div class="vis-item">
+                            <h3>UniversalPose (Ours)</h3>
+                            <div class="vis-image-container pose-box">
+                                <img id="universalpose-img" src="" alt="UniversalPose prediction">
+                                <div class="placeholder" id="universalpose-placeholder">-</div>
+                            </div>
+                        </div>
+                        <div class="vis-item">
+                            <h3 id="baseline-name">Expert Baseline</h3>
+                            <div class="vis-image-container pose-box">
+                                <img id="baseline-img" src="" alt="Baseline prediction">
+                                <div class="placeholder" id="baseline-placeholder">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="legend">
+                        <span class="legend-item"><span class="legend-color red"></span> Prediction</span>
+                        <span class="legend-item"><span class="legend-color blue"></span> Ground Truth</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Model Architecture Section -->
+        <section id="architecture" class="section">
+            <div class="section-inner">
+                <h2>Model Architecture</h2>
+                <div class="architecture-container">
+                    <img src="assets/images/model-pipeline.png" alt="UniversalPose Model Architecture" class="architecture-image">
+                </div>
+                <p class="caption">
+                    <strong>Pipeline and Universal Encoder.</strong> All input signals are mapped into a shared representation space using modality-specific tokenizers and positional encoders, then processed by a single Universal Encoder with local attention and Modality Conditional Adaptation (MoCA) for adaptive modality alignment.
+                </p>
+            </div>
+        </section>
+
+        <!-- Experimental Results Section -->
+        <section id="results" class="section">
+            <div class="section-inner">
+                <h2>Experimental Results</h2>
+
+                <h3>Baseline Comparison</h3>
+                <p class="caption">Accuracy comparison against per-modality expert models; a single jointly-trained UniversalPose matches or surpasses specialized baselines across all six modalities.</p>
+                <div class="results-container">
+                    <img src="assets/images/baseline_comparison.png" alt="Baseline Comparison" class="results-image">
+                </div>
+
+                <h3>Fusion Comparison</h3>
+                <p class="caption">Multi-modal fusion results compared with X-Fi; UniversalPose outperforms the state-of-the-art across most modality combinations without requiring frozen modality-specific encoders.</p>
+                <div class="results-container">
+                    <img src="assets/images/fusion-comparison.png" alt="Fusion Comparison" class="results-image">
+                </div>
+
+                <h3>Ablation Study</h3>
+                <p class="caption">Ablation on the Universal Encoder (vs. OMNIVORE-style global attention), MoCA, and joint training, evaluated at both small and large data scales.</p>
+                <div class="results-container">
+                    <img src="assets/images/ablation.png" alt="Ablation Study" class="results-image">
+                </div>
+            </div>
+        </section>
+
+        <!-- MoCA Analysis Section -->
+        <section id="moca" class="section">
+            <div class="section-inner">
+                <h2>MoCA Feature Analysis</h2>
+                <div class="moca-container">
+                    <img src="assets/images/pca-visualization.png" alt="PCA Visualization of MoCA Features" class="moca-image">
+                </div>
+                <div class="moca-explanation">
+                    <p class="caption">
+                        <strong>Intermediate feature visualization.</strong> PCA of features from block 3 across modalities (color-coded); MoCA substantially reduces modality-specific clustering, especially under limited training data.
+                    </p>
+                    <div class="moca-panels">
+                        <div class="panel-item">
+                            <h4>Ours (Full)</h4>
+                            <p>With MoCA on full training data, features from all modalities are well-aligned in a shared representation space, enabling effective knowledge transfer.</p>
+                        </div>
+                        <div class="panel-item">
+                            <h4>w/o MoCA (Full)</h4>
+                            <p>Without MoCA, some clustering by modality emerges, indicating the model learns more modality-specific rather than shared features.</p>
+                        </div>
+                        <div class="panel-item">
+                            <h4>Ours (Small)</h4>
+                            <p>Even with limited training data, MoCA maintains good feature alignment across modalities, demonstrating its regularization benefits.</p>
+                        </div>
+                        <div class="panel-item">
+                            <h4>w/o MoCA (Small)</h4>
+                            <p>Without MoCA and with limited data, strong modality clustering occurs, leading to poor generalization and knowledge transfer.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>UniversalPose Project Page</p>
+        </footer>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
