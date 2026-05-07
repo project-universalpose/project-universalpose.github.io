@@ -173,92 +173,17 @@
         <section id="results" class="section">
             <div class="section-inner">
                 <h2>Experimental Results</h2>
-                <p class="table-legend"><span class="swatch swatch-best"></span> Best per modality &nbsp;·&nbsp; <span class="swatch-second">underlined</span> Second-best &nbsp;·&nbsp; All values in cm; lower is better.</p>
 
                 <h3>Per-Modality Accuracy vs Expert Baselines</h3>
-                <p class="caption">A single jointly-trained UniversalPose matches or surpasses specialized expert models across all six modalities (MPJPE / PA-MPJPE).</p>
-                <div class="table-wrapper">
-                    <table class="results-table">
-                        <colgroup>
-                            <col>
-                            <col span="2" class="grp">
-                            <col span="2">
-                            <col span="2" class="grp">
-                            <col span="2">
-                            <col span="2" class="grp">
-                            <col span="2">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th rowspan="2" class="row-head">Model</th>
-                                <th colspan="2">WiFi (Sing)</th>
-                                <th colspan="2">mmWave</th>
-                                <th colspan="2">LiDAR</th>
-                                <th colspan="2">Depth</th>
-                                <th colspan="2">TSP</th>
-                                <th colspan="2">WiFi (Mul)</th>
-                            </tr>
-                            <tr>
-                                <th>MPJPE</th><th>PA</th>
-                                <th>MPJPE</th><th>PA</th>
-                                <th>MPJPE</th><th>PA</th>
-                                <th>MPJPE</th><th>PA</th>
-                                <th>MPJPE</th><th>PA</th>
-                                <th>MPJPE</th><th>PA</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="row-head">MetaFi++ (Single)</td><td>20.8</td><td>12.0</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><td class="row-head">Point Transformer (M)</td><td>—</td><td>—</td><td>16.1</td><td>6.91</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><td class="row-head">Point Transformer (L)</td><td>—</td><td>—</td><td>—</td><td>—</td><td>12.9</td><td>7.39</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><td class="row-head">A2J</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="best">10.1</td><td class="best">5.89</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><td class="row-head">TSP2Pose</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>9.66</td><td>5.69</td><td>—</td><td>—</td></tr>
-                            <tr><td class="row-head">MetaFi++ (Multi)</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>13.7</td><td>8.33</td></tr>
-                            <tr><td class="row-head">MetaFi++ (Single &amp; Multi)</td><td>21.2</td><td>12.1</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>25.2</td><td>11.3</td></tr>
-                            <tr><td class="row-head">Point Transformer (M&amp;L)</td><td>—</td><td>—</td><td>21.4</td><td>8.11</td><td>11.5</td><td>5.02</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr class="row-ours"><td class="row-head">Ours</td><td class="best">19.0</td><td class="best">9.65</td><td class="best">12.7</td><td class="best">6.35</td><td class="best">10.7</td><td class="best">4.23</td><td>11.9</td><td>7.29</td><td class="best">8.61</td><td class="best">5.68</td><td class="best">11.1</td><td class="best">6.94</td></tr>
-                        </tbody>
-                    </table>
+                <p class="caption">A single jointly-trained UniversalPose matches or surpasses specialized expert models across all six modalities. Best scores in green (lower is better).</p>
+                <div class="table-figure">
+                    <img src="assets/images/table-baseline.png" alt="Per-modality accuracy comparison against expert baselines (MPJPE / PA-MPJPE)" class="table-image">
                 </div>
 
                 <h3>Modality-Fusion Comparison vs X-Fi</h3>
-                <p class="caption">With synchronized signals, the same UniversalPose architecture is trained for fusion via simple token concatenation — no fusion-specific branches. D = Depth, L = LiDAR, R = mmWave, W = WiFi (Sing).</p>
-                <div class="table-wrapper">
-                    <table class="results-table results-table-fusion">
-                        <colgroup>
-                            <col>
-                            <col span="4" class="grp">
-                            <col span="4">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th rowspan="2" class="row-head">Modal</th>
-                                <th colspan="4">MPJPE ↓</th>
-                                <th colspan="4">PA-MPJPE ↓</th>
-                            </tr>
-                            <tr>
-                                <th>Ours</th><th>w/o MoCA</th><th>X-Fi</th><th>X-Fi w/ FT enc.</th>
-                                <th>Ours</th><th>w/o MoCA</th><th>X-Fi</th><th>X-Fi w/ FT enc.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="row-head">D</td><td class="best">8.50</td><td>16.0</td><td>10.2</td><td class="second">9.96</td><td>5.72</td><td>6.73</td><td class="best">4.84</td><td class="second">4.99</td></tr>
-                            <tr><td class="row-head">L</td><td class="best">6.90</td><td class="second">6.94</td><td>16.7</td><td>8.11</td><td class="best">4.51</td><td class="second">4.54</td><td>10.3</td><td>5.13</td></tr>
-                            <tr><td class="row-head">R</td><td class="second">12.1</td><td>12.2</td><td>12.7</td><td class="best">11.6</td><td>6.08</td><td class="second">6.05</td><td>6.98</td><td class="best">5.56</td></tr>
-                            <tr><td class="row-head">W</td><td>19.3</td><td class="second">19.2</td><td>22.6</td><td class="best">18.1</td><td class="best">10.5</td><td class="second">10.6</td><td class="best">10.5</td><td>10.7</td></tr>
-                            <tr class="rule-row"><td class="row-head">D+L</td><td class="best">6.82</td><td class="second">9.29</td><td>10.3</td><td>9.55</td><td class="best">4.63</td><td>4.86</td><td class="second">4.84</td><td>4.93</td></tr>
-                            <tr><td class="row-head">D+R</td><td class="best">7.60</td><td>12.9</td><td>9.80</td><td class="second">9.67</td><td>5.08</td><td>5.84</td><td class="best">4.73</td><td class="second">4.75</td></tr>
-                            <tr><td class="row-head">L+R</td><td class="best">6.81</td><td class="second">6.88</td><td>11.0</td><td>7.81</td><td class="best">4.42</td><td class="second">4.49</td><td>6.34</td><td>4.51</td></tr>
-                            <tr><td class="row-head">D+W</td><td class="best">8.58</td><td>15.8</td><td>10.2</td><td class="second">9.45</td><td>5.77</td><td>6.77</td><td class="best">4.81</td><td class="second">4.96</td></tr>
-                            <tr><td class="row-head">L+W</td><td class="best">6.85</td><td class="second">6.93</td><td>16.0</td><td>8.08</td><td class="best">4.52</td><td class="second">4.56</td><td>10.3</td><td>5.10</td></tr>
-                            <tr><td class="row-head">R+W</td><td class="second">11.0</td><td class="second">11.0</td><td>11.7</td><td class="best">10.1</td><td>6.15</td><td class="second">6.13</td><td>6.27</td><td class="best">5.61</td></tr>
-                            <tr class="rule-row"><td class="row-head">D+L+R</td><td class="best">6.74</td><td class="second">9.26</td><td>9.60</td><td>9.31</td><td class="best">4.58</td><td>4.81</td><td class="second">4.73</td><td class="second">4.73</td></tr>
-                            <tr><td class="row-head">D+L+W</td><td class="best">6.78</td><td class="second">9.35</td><td>10.2</td><td>9.46</td><td class="best">4.62</td><td>4.83</td><td class="second">4.81</td><td>4.89</td></tr>
-                            <tr><td class="row-head">D+R+W</td><td class="best">7.60</td><td>12.8</td><td>9.70</td><td class="second">9.55</td><td>5.08</td><td>5.76</td><td class="best">4.71</td><td class="second">4.74</td></tr>
-                            <tr><td class="row-head">L+R+W</td><td class="best">6.78</td><td class="second">6.86</td><td>10.7</td><td>7.66</td><td class="best">4.43</td><td class="second">4.48</td><td>6.31</td><td>4.53</td></tr>
-                            <tr class="rule-row"><td class="row-head">D+L+R+W</td><td class="best">6.74</td><td>9.37</td><td>9.76</td><td class="second">9.21</td><td class="best">4.58</td><td>4.79</td><td>4.74</td><td class="second">4.69</td></tr>
-                        </tbody>
-                    </table>
+                <p class="caption">With synchronized signals, the same UniversalPose architecture is trained for fusion via simple token concatenation — no fusion-specific branches. Best in green, second-best underlined. D = Depth, L = LiDAR, R = mmWave, W = WiFi (Sing).</p>
+                <div class="table-figure">
+                    <img src="assets/images/table-fusion.png" alt="Modality-fusion comparison against X-Fi across every subset of D / L / R / W" class="table-image">
                 </div>
                 <p class="caption">
                     Across every single- and multi-modal setting, Ours achieves the lowest MPJPE versus the vanilla X-Fi backbone, with the largest gains on combinations that include LiDAR or WiFi where X-Fi's frozen modality-specific encoders struggle (e.g., L+W: 6.85 vs 16.0&nbsp;cm). The full four-modality fusion (D+L+R+W) reaches 6.74&nbsp;cm MPJPE — a 31% reduction over X-Fi's 9.76&nbsp;cm — while remaining a single, modality-agnostic architecture.
@@ -266,48 +191,8 @@
 
                 <h3>Ablation Study</h3>
                 <p class="caption">Ablation on the Universal Encoder (vs. OMNIVORE-style global attention), token-wise / token-pair-wise MoCA, and joint-training. PE = MPJPE.</p>
-                <div class="table-wrapper">
-                    <table class="results-table">
-                        <colgroup>
-                            <col>
-                            <col span="2" class="grp">
-                            <col span="2">
-                            <col span="2" class="grp">
-                            <col span="2">
-                            <col span="2" class="grp">
-                            <col span="2">
-                            <col span="2" class="grp">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th rowspan="2" class="row-head">Model</th>
-                                <th colspan="2">WiFi (Sing)</th>
-                                <th colspan="2">mmWave</th>
-                                <th colspan="2">LiDAR</th>
-                                <th colspan="2">Depth</th>
-                                <th colspan="2">TSP</th>
-                                <th colspan="2">WiFi (Mul)</th>
-                                <th colspan="2">Avg</th>
-                            </tr>
-                            <tr>
-                                <th>PE</th><th>PA</th>
-                                <th>PE</th><th>PA</th>
-                                <th>PE</th><th>PA</th>
-                                <th>PE</th><th>PA</th>
-                                <th>PE</th><th>PA</th>
-                                <th>PE</th><th>PA</th>
-                                <th>PE</th><th>PA</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="row-head">OMNIVORE (w/o UnivEnc)</td><td class="second">18.9</td><td>9.71</td><td>13.0</td><td>6.70</td><td>11.9</td><td class="best">4.07</td><td>20.1</td><td>8.99</td><td>9.62</td><td>6.36</td><td>13.2</td><td>7.74</td><td>14.5</td><td>7.26</td></tr>
-                            <tr class="rule-row row-ours"><td class="row-head">UniversalPose</td><td>19.0</td><td>9.65</td><td>12.7</td><td>6.35</td><td class="second">10.7</td><td>4.23</td><td>11.9</td><td class="second">7.29</td><td class="best">8.61</td><td class="second">5.68</td><td class="best">11.1</td><td class="second">6.94</td><td class="best">12.3</td><td class="best">6.69</td></tr>
-                            <tr><td class="row-head">w/o token-wise MoCA</td><td class="second">18.9</td><td class="second">9.57</td><td class="best">12.5</td><td class="best">6.15</td><td>11.1</td><td>4.28</td><td class="best">10.8</td><td>7.37</td><td>9.80</td><td>5.81</td><td>12.9</td><td>7.66</td><td>12.7</td><td>6.81</td></tr>
-                            <tr><td class="row-head">w/o token-pair-wise MoCA</td><td class="best">18.8</td><td class="best">9.46</td><td class="second">12.6</td><td>6.34</td><td>10.8</td><td class="second">4.08</td><td>12.1</td><td>7.66</td><td>9.19</td><td>5.96</td><td class="best">11.1</td><td class="best">6.88</td><td class="second">12.4</td><td class="second">6.73</td></tr>
-                            <tr><td class="row-head">w/o MoCA (both)</td><td>19.3</td><td>9.79</td><td class="best">12.5</td><td class="second">6.20</td><td>11.0</td><td>4.23</td><td class="second">10.9</td><td class="best">7.26</td><td>9.56</td><td>5.95</td><td>13.1</td><td>7.64</td><td>12.7</td><td>6.85</td></tr>
-                            <tr class="rule-row"><td class="row-head">w/o Joint-training</td><td>19.0</td><td>10.1</td><td>13.1</td><td>6.61</td><td class="best">10.6</td><td>4.16</td><td>12.8</td><td>8.25</td><td class="second">9.11</td><td class="best">5.58</td><td class="second">12.2</td><td>7.09</td><td>12.8</td><td>6.97</td></tr>
-                        </tbody>
-                    </table>
+                <div class="table-figure">
+                    <img src="assets/images/table-ablation.png" alt="Ablation results across UniversalPose variants" class="table-image">
                 </div>
             </div>
         </section>
