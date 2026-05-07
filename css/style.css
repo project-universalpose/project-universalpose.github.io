@@ -477,11 +477,151 @@ h2 {
 }
 
 #results h3 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    margin-bottom: 16px;
-    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-top: 32px;
     color: var(--text-primary);
+}
+
+#results h3:first-of-type {
+    margin-top: 8px;
+}
+
+.table-legend {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 4px 0 24px;
+}
+
+.table-legend .swatch {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    background: #d1fae5;
+    border: 1px solid #6ee7b7;
+    vertical-align: -2px;
+    margin-right: 4px;
+}
+
+.table-legend .swatch-second {
+    text-decoration: underline;
+    text-decoration-color: var(--text-primary);
+    text-underline-offset: 2px;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin: 0 0 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: white;
+}
+
+.results-table {
+    border-collapse: collapse;
+    font-size: 13px;
+    width: 100%;
+    min-width: 720px;
+    font-variant-numeric: tabular-nums;
+}
+
+.results-table thead th {
+    background: #f8fafc;
+    font-weight: 600;
+    color: var(--text-primary);
+    padding: 8px 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.results-table thead tr:first-child th {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.results-table thead tr:nth-child(2) th {
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--text-secondary);
+    padding-top: 4px;
+    padding-bottom: 6px;
+}
+
+.results-table tbody td {
+    padding: 7px 10px;
+    text-align: center;
+    border-top: 1px solid #f1f5f9;
+}
+
+.results-table tbody td.row-head,
+.results-table thead th.row-head {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    padding-left: 14px;
+}
+
+.results-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.results-table .row-ours td {
+    background: #fafaf9;
+    border-top: 1px solid var(--border-color);
+    font-weight: 500;
+}
+
+.results-table .row-ours:hover td {
+    background: #f5f5f4;
+}
+
+.results-table tr.rule-row td {
+    border-top: 1px solid var(--border-color);
+}
+
+.results-table td.best {
+    background: #d1fae5;
+    color: #065f46;
+    font-weight: 600;
+}
+
+.results-table .row-ours td.best {
+    background: #a7f3d0;
+    color: #064e3b;
+}
+
+.results-table td.second {
+    text-decoration: underline;
+    text-decoration-color: var(--text-primary);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+.results-table colgroup col.grp + col {
+    border-left: 1px solid var(--border-color);
+}
+
+.results-table-fusion tbody tr.rule-row td {
+    border-top: 1px solid var(--border-color);
+}
+
+/* Qualitative Section */
+.qualitative-container {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.qualitative-image {
+    width: 100%;
+    max-width: 1080px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Architecture Section */
@@ -516,59 +656,6 @@ h2 {
 
 .moca-explanation {
     max-width: 980px;
-}
-
-/* Multi-Modal Fusion (within Results) */
-.fusion-highlights {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin: 8px 0 32px;
-    max-width: 880px;
-}
-
-.highlight-card {
-    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-    border: 1px solid #a7f3d0;
-    border-radius: 10px;
-    padding: 16px 12px;
-    text-align: center;
-}
-
-.highlight-number {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #047857;
-    margin-bottom: 4px;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-}
-
-.highlight-label {
-    font-size: 12px;
-    color: var(--text-secondary);
-    line-height: 1.4;
-}
-
-.fusion-container {
-    margin: 8px 0 16px;
-    display: flex;
-    justify-content: center;
-}
-
-.fusion-image {
-    width: 100%;
-    max-width: 820px;
-    height: auto;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    background: white;
-}
-
-@media (max-width: 1024px) {
-    .fusion-highlights {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 .moca-panels {
