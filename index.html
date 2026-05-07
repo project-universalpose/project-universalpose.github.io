@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniversalPose: A Unified Multi-Modal Framework for Human Pose Estimation</title>
+    <title>UniversalPose: Universal Human Pose Representation for Multi-Modal Active Sensing</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -179,11 +179,36 @@
                     <img src="assets/images/baseline_comparison.png" alt="Baseline Comparison" class="results-image">
                 </div>
 
-                <h3>Fusion Comparison</h3>
-                <p class="caption">Multi-modal fusion results compared with X-Fi; UniversalPose outperforms the state-of-the-art across most modality combinations without requiring frozen modality-specific encoders.</p>
-                <div class="results-container">
-                    <img src="assets/images/fusion-comparison.png" alt="Fusion Comparison" class="results-image">
+                <h3>Fusion Comparison vs X-Fi</h3>
+                <p class="caption">
+                    With synchronized signals, the same UniversalPose architecture is trained for fusion via simple token concatenation — no fusion-specific branches. We compare against the state-of-the-art fusion model X-Fi on every subset of {Depth, LiDAR, mmWave, WiFi(Sing)}.
+                </p>
+
+                <div class="fusion-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-number">15 / 15</div>
+                        <div class="highlight-label">MPJPE settings where Ours beats X-Fi</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-number">11 / 11</div>
+                        <div class="highlight-label">Multi-modal combinations where Ours wins on MPJPE</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-number">−31%</div>
+                        <div class="highlight-label">MPJPE on full D+L+R+W fusion (6.74 vs 9.76 cm)</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-number">−57%</div>
+                        <div class="highlight-label">MPJPE on L+W fusion (6.85 vs 16.0 cm)</div>
+                    </div>
                 </div>
+
+                <div class="fusion-container">
+                    <img src="assets/images/fusion-table.png" alt="Modality-fusion comparison: Ours vs X-Fi across every subset of D/L/R/W, on MPJPE and PA-MPJPE" class="fusion-image">
+                </div>
+                <p class="caption">
+                    <strong>Modality-fusion comparison (MPJPE / PA-MPJPE, cm; lower is better).</strong> Best results in green, second-best underlined. Across every single- and multi-modal setting, Ours achieves the lowest MPJPE versus the vanilla X-Fi backbone, with the largest gains on combinations that include LiDAR or WiFi where X-Fi's frozen modality-specific encoders struggle (e.g., L+W: 6.85 vs 16.0&nbsp;cm). The full four-modality fusion (D+L+R+W) reaches 6.74&nbsp;cm MPJPE — a 31% reduction over X-Fi's 9.76&nbsp;cm — while remaining a single, modality-agnostic architecture.
+                </p>
 
                 <h3>Ablation Study</h3>
                 <p class="caption">Ablation on the Universal Encoder (vs. OMNIVORE-style global attention), MoCA, and joint training, evaluated at both small and large data scales.</p>
@@ -198,28 +223,20 @@
             <div class="section-inner">
                 <h2>MoCA Feature Analysis</h2>
                 <div class="moca-container">
-                    <img src="assets/images/pca-visualization.png" alt="PCA Visualization of MoCA Features" class="moca-image">
+                    <img src="assets/images/pca-visualization.png" alt="Intermediate feature visualization across Transformer blocks with and without MoCA" class="moca-image">
                 </div>
                 <div class="moca-explanation">
                     <p class="caption">
-                        <strong>Intermediate feature visualization.</strong> PCA of features from block 3 across modalities (color-coded); MoCA substantially reduces modality-specific clustering, especially under limited training data.
+                        <strong>Intermediate feature visualization across Transformer blocks.</strong> Each scatter shows the first two principal components of features from six modalities (color-coded), at Block 1, Block 3, and Block 5 of our Universal Encoder. Comparing the two rows, MoCA progressively aligns features from different modalities into a shared "human pose" representation as depth increases, while the inter-modality gap persists when MoCA is removed.
                     </p>
                     <div class="moca-panels">
                         <div class="panel-item">
-                            <h4>Ours (Full)</h4>
-                            <p>With MoCA on full training data, features from all modalities are well-aligned in a shared representation space, enabling effective knowledge transfer.</p>
+                            <h4>Ours (with MoCA)</h4>
+                            <p>Modality-specific clusters at Block 1 are progressively merged through Blocks 3 and 5, indicating that MoCA reconciles structural and statistical heterogeneity into a shared latent manifold that supports cross-modal knowledge transfer.</p>
                         </div>
                         <div class="panel-item">
-                            <h4>w/o MoCA (Full)</h4>
-                            <p>Without MoCA, some clustering by modality emerges, indicating the model learns more modality-specific rather than shared features.</p>
-                        </div>
-                        <div class="panel-item">
-                            <h4>Ours (Small)</h4>
-                            <p>Even with limited training data, MoCA maintains good feature alignment across modalities, demonstrating its regularization benefits.</p>
-                        </div>
-                        <div class="panel-item">
-                            <h4>w/o MoCA (Small)</h4>
-                            <p>Without MoCA and with limited data, strong modality clustering occurs, leading to poor generalization and knowledge transfer.</p>
+                            <h4>w/o MoCA</h4>
+                            <p>Without MoCA, features from different modalities remain visibly clustered even at deeper blocks, leading to a residual inter-modality gap that is consistent with the accuracy drops observed in the ablation study.</p>
                         </div>
                     </div>
                 </div>
